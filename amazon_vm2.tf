@@ -12,6 +12,35 @@ resource "aws_instance" "my_Ubuntu" {
   }
 }
 
+/*
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+*/
+
+resource "aws_eip" "hashicat" {
+  instance = aws_instance.hashicat.id
+  vpc      = true
+}
+
+
+
+
+
+
 resource "aws_instance" "my_Amazon" {
   ami           = "ami-03a71cec707bfc3d7"
   instance_type = "t3.small"
