@@ -8,7 +8,7 @@ resource "aws_instance" "my_Ubuntu" {
 }
 
 output "AMI_Nummer" {
-  value = "data.aws_ami.ubuntu.id
+  value = data.aws_ami.ubuntu.id
 }
 
 
