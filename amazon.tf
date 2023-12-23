@@ -144,6 +144,7 @@ resource "aws_eip_association" "hashicat" {
 ### erstellen instanc eС2 ##########
 ####################################
 
+/*
 resource "aws_instance" "hashicat" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
@@ -162,7 +163,7 @@ resource "aws_instance" "hashicat" {
 ### erstellen zweite instanc eС2 ###
 ####################################
 
-/*
+
 resource "aws_instance" "linuxvm2" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
