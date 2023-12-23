@@ -1,4 +1,5 @@
-####################################
+/*
+###################################
 ### erstellen VPC ( vNet) ##########
 ####################################
 
@@ -144,7 +145,7 @@ resource "aws_eip_association" "hashicat" {
 ### erstellen instanc eС2 ##########
 ####################################
 
-/*
+
 resource "aws_instance" "hashicat" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
@@ -179,7 +180,7 @@ resource "aws_instance" "linuxvm2" {
   }
 }
 
-*/
+
 
 
 # We're using a little trick here so we can run the provisioner without
@@ -248,4 +249,7 @@ resource "aws_key_pair" "hashicat" {
   key_name   = local.private_key_filename
   public_key = tls_private_key.hashicat.public_key_openssh
 }
+
+*/
+
 
