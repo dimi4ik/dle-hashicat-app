@@ -4,7 +4,8 @@ resource "aws_instance" "my_Ubuntu" {
 # ami           = "ami-090f10efc254eaf55"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
-  tags = var.common_tags
+  #tags = var.common_tags
+  instance_type = "t3.small"
 }
 
 output "AMI_Nummer" {
