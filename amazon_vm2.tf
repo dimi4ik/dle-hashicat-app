@@ -8,7 +8,7 @@ resource "aws_instance" "my_Ubuntu" {
   instance_type = "t3.small"
 }
 
-/*
+
 
 output "AMI_Nummer" {
   value = data.aws_ami.ubuntu.id
@@ -45,7 +45,6 @@ output "private_ip" {
   value = data.aws_instance.publIP.private_ip
 }
 
-*/
 
 /*
 
