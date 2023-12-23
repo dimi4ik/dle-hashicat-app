@@ -1,4 +1,5 @@
 
+/*
 
 resource "aws_instance" "my_Ubuntu" {
 # ami           = "ami-090f10efc254eaf55"
@@ -44,6 +45,9 @@ output "public_ip" {
 output "private_ip" {
   value = data.aws_instance.publIP.private_ip
 }
+
+*/
+
 
 
 /*
