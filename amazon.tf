@@ -158,6 +158,11 @@ resource "aws_instance" "hashicat" {
   }
 }
 
+####################################
+### erstellen zweite instanc eС2 ###
+####################################
+
+/*
 resource "aws_instance" "linuxvm2" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
@@ -166,12 +171,14 @@ resource "aws_instance" "linuxvm2" {
   subnet_id                   = aws_subnet.hashicat.id
   vpc_security_group_ids      = [aws_security_group.hashicat.id]
 
+
   tags = {
     Name = "${var.prefix}-hashicat-instance"
     environment = "Production"  
   }
 }
 
+*/
 
 
 # We're using a little trick here so we can run the provisioner without
