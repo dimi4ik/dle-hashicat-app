@@ -1,7 +1,8 @@
 
 
 resource "aws_instance" "my_Ubuntu" {
-  ami           = "ami-090f10efc254eaf55"
+# ami           = "ami-090f10efc254eaf55"
+ami                         = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 
   tags = {
@@ -11,7 +12,7 @@ resource "aws_instance" "my_Ubuntu" {
   }
 }
 
-/*
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -28,6 +29,7 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+/*
 
 
 resource "aws_eip" "hashicat" {
