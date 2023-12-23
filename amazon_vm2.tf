@@ -29,7 +29,7 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-*/
+
 
 resource "aws_eip" "hashicat" {
   instance = aws_instance.hashicat.id
@@ -37,7 +37,7 @@ resource "aws_eip" "hashicat" {
 }
 
 
-
+*/
 
 
 
