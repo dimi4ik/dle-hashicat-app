@@ -1,3 +1,6 @@
+####################################
+### erstellen VPC ( vNet) ##########
+####################################
 
 resource "aws_vpc" "hashicat" {
   cidr_block           = var.address_space
@@ -9,6 +12,10 @@ resource "aws_vpc" "hashicat" {
   }
 }
 
+####################################
+### erstellen Subnet in VPC ########
+####################################
+
 resource "aws_subnet" "hashicat" {
   vpc_id     = aws_vpc.hashicat.id
   cidr_block = var.subnet_prefix
@@ -18,6 +25,11 @@ resource "aws_subnet" "hashicat" {
     environment = "Production"
   }
 }
+
+
+####################################
+### erstellen Security Group########
+####################################
 
 resource "aws_security_group" "hashicat" {
   name = "${var.prefix}-security-group"
@@ -59,6 +71,11 @@ resource "aws_security_group" "hashicat" {
   }
 }
 
+####################################
+### erstellen Gataway.      ########
+####################################
+
+
 resource "aws_internet_gateway" "hashicat" {
   vpc_id = aws_vpc.hashicat.id
 
@@ -67,6 +84,10 @@ resource "aws_internet_gateway" "hashicat" {
     environment = "Production"
   }
 }
+
+####################################
+### erstellen Route Table ########
+####################################
 
 resource "aws_route_table" "hashicat" {
   vpc_id = aws_vpc.hashicat.id
@@ -81,6 +102,17 @@ resource "aws_route_table_association" "hashicat" {
   subnet_id      = aws_subnet.hashicat.id
   route_table_id = aws_route_table.hashicat.id
 }
+
+
+# Добавьте в свой код блок типа aws_ami, назовите его ubuntu; 
+# 3. Установите переменную most_recent = true, это позволит получить последний образ из всех; 
+# 4. Установите переменную owners = ["099720109477"], это ID владельца образа - Canonical; 
+# 5. Создайте блоки со следующими фильтрами: 1. name: ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-* 2. virtualization-type: hvm 1. 
+# В ресурсе виртуальной машины замените параметр ami, заданный строкой, ссылкой на ресурс: data.aws_ami.ubuntu.id. Важно: кавычки ставить не нужно!
+
+####################################
+### Suchen ein Ubuntu image AMI ####
+####################################
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -107,6 +139,10 @@ resource "aws_eip_association" "hashicat" {
   instance_id   = aws_instance.hashicat.id
   allocation_id = aws_eip.hashicat.id
 }
+
+####################################
+### erstellen instanc eС2 ##########
+####################################
 
 resource "aws_instance" "hashicat" {
   ami                         = data.aws_ami.ubuntu.id
