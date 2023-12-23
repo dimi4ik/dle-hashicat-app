@@ -1,4 +1,4 @@
-/*
+
 resource "aws_vpc" "hashicat" {
   cidr_block           = var.address_space
   enable_dns_hostnames = true
@@ -184,4 +184,4 @@ resource "aws_key_pair" "hashicat" {
   key_name   = local.private_key_filename
   public_key = tls_private_key.hashicat.public_key_openssh
 }
-*/
+
