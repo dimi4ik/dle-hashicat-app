@@ -7,6 +7,10 @@ resource "aws_instance" "my_Ubuntu" {
   tags = var.common_tags
 }
 
+output "AMI Nummer" {
+  value = "data.aws_ami.ubuntu.id
+}
+
 
 data "aws_ami" "ubuntu" {
   most_recent = true
