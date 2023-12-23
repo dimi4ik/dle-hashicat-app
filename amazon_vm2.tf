@@ -39,6 +39,12 @@ output "public_ip" {
 }
 
 
+output "private_ip" {
+  value = data.aws_instance.publIP.private_ip
+}
+
+
+
 /*
 
 
