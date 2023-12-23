@@ -50,3 +50,17 @@ variable "placeholder" {
   default     = "placekitten.com"
   description = "Image-as-a-service URL. Some other fun ones to try are fillmurray.com, placecage.com, placebeard.it, loremflickr.com, baconmockup.com, placeimg.com, placebear.com, placeskull.com, stevensegallery.com, placedog.net"
 }
+
+
+#Common Tags
+variable "common_tags" {
+  description = "Common Tags for Azure Resources"
+  type        = map(string)
+  default = {
+    "source"          = "terraform"
+    "environment_tag" = "apc001-Azure-Lab"
+    "Cost_Center_tag" = "apc001"
+    "Function_tag"    = "Ansible Host"
+    "Owner_tag"       = "Dim@Lejkin"
+  }
+}
