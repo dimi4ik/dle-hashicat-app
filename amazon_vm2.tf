@@ -29,6 +29,16 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+
+data "aws_instance" "publIP" {
+  instance_id = aws_instance.my_Ubuntu.id
+}
+
+output "public_ip" {
+  value = data.aws_instance.publIP.public_ip
+}
+
+
 /*
 
 
