@@ -7,7 +7,7 @@ resource "aws_instance" "my_Ubuntu" {
   tags = var.common_tags
 }
 
-output "AMI Nummer" {
+output "AMI_Nummer" {
   value = "data.aws_ami.ubuntu.id
 }
 
