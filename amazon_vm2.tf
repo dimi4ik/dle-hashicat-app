@@ -1,4 +1,4 @@
-
+/*
 
 
 resource "aws_instance" "my_Ubuntu" {
@@ -12,7 +12,7 @@ resource "aws_instance" "my_Ubuntu" {
   }
 }
 
-/*
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -36,21 +36,17 @@ resource "aws_eip" "hashicat" {
   vpc      = true
 }
 
-
-*/
-
-
-
 resource "aws_instance" "my_Amazon" {
   ami           = "ami-03a71cec707bfc3d7"
   instance_type = "t3.small"
 
 tags = var.common_tags
-/*
+
   tags = {
     Name    = "My Amazon Server"
     Owner   = "dim@"
     Project = "Terraform Lessons"
   }
-  */
+  
 }
+*/
