@@ -1,4 +1,3 @@
-/*
 
 
 resource "aws_instance" "my_Ubuntu" {
@@ -12,7 +11,7 @@ resource "aws_instance" "my_Ubuntu" {
   }
 }
 
-
+/*
 data "aws_ami" "ubuntu" {
   most_recent = true
 
