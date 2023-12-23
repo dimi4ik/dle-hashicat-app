@@ -5,7 +5,7 @@ resource "aws_instance" "my_Ubuntu" {
   ami           = data.aws_ami.ubuntu.id
   #instance_type = "t3.micro"
   tags = var.common_tags
-  instance_type = "t3.small"
+  instance_type = "t3.micro"
 }
 
 
