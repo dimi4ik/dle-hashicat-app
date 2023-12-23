@@ -15,6 +15,7 @@ resource "aws_subnet" "hashicat" {
 
   tags = {
     name = "${var.prefix}-subnet"
+    environment = "Production"
   }
 }
 
@@ -54,6 +55,7 @@ resource "aws_security_group" "hashicat" {
 
   tags = {
     Name = "${var.prefix}-security-group"
+    environment = "Production" 
   }
 }
 
@@ -62,6 +64,7 @@ resource "aws_internet_gateway" "hashicat" {
 
   tags = {
     Name = "${var.prefix}-internet-gateway"
+    environment = "Production"
   }
 }
 
@@ -115,6 +118,7 @@ resource "aws_instance" "hashicat" {
 
   tags = {
     Name = "${var.prefix}-hashicat-instance"
+    environment = "Production"  
   }
 }
 
