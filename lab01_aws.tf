@@ -19,7 +19,7 @@ resource "aws_subnet" "private_subnets" {
   for_each          = var.private_subnets
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(var.vpc_cidr, 8, each.value)
- # availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
+   availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
 
   tags = {
     Name      = each.key
@@ -32,7 +32,7 @@ resource "aws_subnet" "public_subnets" {
   for_each                = var.public_subnets
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, each.value + 100)
-  #availability_zone       = tolist(data.aws_availability_zones.available.names)[each.value]
+  availability_zone       = tolist(data.aws_availability_zones.available.names)[each.value]
   map_public_ip_on_launch = true
 
   tags = {
@@ -47,8 +47,8 @@ resource "aws_route_table" "public_route_table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway.id
-    #nat_gateway_id = aws_nat_gateway.nat_gateway.id
+    #gateway_id = aws_internet_gateway.internet_gateway.id
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
   tags = {
     Name      = "demo_public_rtb"
