@@ -1,7 +1,11 @@
 
+/*
+
 #Retrieve the list of AZs in the current AWS region
 data "aws_availability_zones" "available" {}
 data "aws_region" "current" {}
+
+
 
 #Define the VPC 
 resource "aws_vpc" "vpc" {
@@ -111,3 +115,5 @@ resource "aws_nat_gateway" "nat_gateway" {
     Name = "demo_nat_gateway"
   }
 }
+
+*/
