@@ -182,3 +182,33 @@ terraform destroy -auto-approve
 
 
 More information on the Terraform scripts can be found [here](https://github.com/citrix/terraform-cloud-scripts/blob/master/aws/ha_across_az/README.md)
+
+
+
+│ Error: Error launching source instance: OptInRequired: In order to use this AWS Marketplace product you need to accept terms
+and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=5vjsqlg4ol0hkr6aseu8mrdvc
+│       status code: 401, request id: 03169778-6fc8-461a-891c-d946d9a193e4
+│
+│   with aws_instance.citrix_adc[0],
+│   on citrix_adc.tf line 30, in resource "aws_instance" "citrix_adc":
+│   30: resource "aws_instance" "citrix_adc" {
+│
+╵
+╷
+│ Error: Error launching source instance: OptInRequired: In order to use this AWS Marketplace product you need to accept terms
+and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=5vjsqlg4ol0hkr6aseu8mrdvc
+│       status code: 401, request id: 7a6e64d2-5989-4ebc-84d3-89c32f501b71
+│
+│   with aws_instance.citrix_adc[1],
+│   on citrix_adc.tf line 30, in resource "aws_instance" "citrix_adc":
+│   30: resource "aws_instance" "citrix_adc" {
+│
+╵
+╷
+│ Error: error importing EC2 Key Pair (cn-terraform): InvalidKey.Format: Key is not in valid OpenSSH public key format
+│       status code: 400, request id: b3ce2d13-e947-47f8-8147-82bc07c5e175
+│
+│   with aws_key_pair.general_access_key,
+│   on ssh_key.tf line 30, in resource "aws_key_pair" "general_access_key":
+│   30: resource "aws_key_pair" "general_access_key" {
+│
