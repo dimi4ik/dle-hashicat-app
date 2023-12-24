@@ -74,6 +74,8 @@ The following is a sample input variable file that contains the bare minimum inp
 
 ### Sample Input Variables
 
+
+
 ```
 aws_region="ap-south-1"
 aws_availability_zones=["ap-south-1a", "ap-south-1b"]

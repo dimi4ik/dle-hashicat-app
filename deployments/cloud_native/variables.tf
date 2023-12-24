@@ -32,6 +32,9 @@ variable "aws_region" {
   default     = "ap-south-1"
 }
 
+#############
+#Dima
+
 #variable "aws_access_key" {
 #  description = "The AWS access key"
 #}
