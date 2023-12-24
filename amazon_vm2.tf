@@ -1,3 +1,6 @@
+###################################
+###### erstellen instance micro ###
+###################################
 
 /*
 
@@ -57,6 +60,11 @@ resource "aws_eip" "hashicat" {
   instance = aws_instance.hashicat.id
   vpc      = true
 }
+
+###################################
+###### erstellen instance micro ###
+###################################
+
 
 resource "aws_instance" "my_Amazon" {
   ami           = "ami-03a71cec707bfc3d7"
