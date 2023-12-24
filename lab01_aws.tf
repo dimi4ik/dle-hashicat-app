@@ -1,4 +1,4 @@
-
+/*
 
 
 #Retrieve the list of AZs in the current AWS region
@@ -116,3 +116,4 @@ resource "aws_nat_gateway" "nat_gateway" {
   }
 }
 
+*/
