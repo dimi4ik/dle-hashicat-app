@@ -97,6 +97,7 @@ variable "public_subnets" {
   }
 }
 
+/*
 #####################################
 ## AWS Provider Module - Variables ##
 #####################################
@@ -118,7 +119,7 @@ variable "aws_region" {
   description = "AWS region"
 }
 
-
+*/
 
 ########################################
 ## Virtual Machine Module - Variables ##
