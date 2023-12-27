@@ -206,9 +206,11 @@ variable "public_subnet_cidr" {
 variable "app_name" {
   type        = string
   description = "Application name"
+  default = "value"
 }
 
 variable "app_environment" {
   type        = string
   description = "Application environment"
+  default = "lab"
 }
