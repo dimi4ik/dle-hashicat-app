@@ -1,4 +1,4 @@
-/*
+
 ###################################
 ### erstellen VPC ( vNet) ##########
 ####################################
@@ -160,6 +160,7 @@ resource "aws_instance" "hashicat" {
   }
 }
 
+/*
 ####################################
 ### erstellen zweite instanc eС2 ###
 ####################################
@@ -182,6 +183,7 @@ resource "aws_instance" "linuxvm2" {
 
 
 
+*/
 
 # We're using a little trick here so we can run the provisioner without
 # destroying the VM. Do not do this in production.
@@ -250,6 +252,6 @@ resource "aws_key_pair" "hashicat" {
   public_key = tls_private_key.hashicat.public_key_openssh
 }
 
-*/
+
 
 
