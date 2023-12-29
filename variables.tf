@@ -206,11 +206,11 @@ variable "public_subnet_cidr" {
 variable "app_name" {
   type        = string
   description = "Application name"
-  default = "dimaLab"
+  default     = "dimaLab"
 }
 
 variable "app_environment" {
   type        = string
   description = "Application environment"
-  default = "dev"
+  default     = "dev"
 }

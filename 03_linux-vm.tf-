@@ -225,6 +225,9 @@ resource "null_resource" "configure-cat-app" {
       "cowsay Success! Experience the magic of Dima Automation with Terraform!",
     ]
 
+
+# figlet kerneltalks | cowsay -n
+
     connection {
       type        = "ssh"
       user        = "ubuntu"
