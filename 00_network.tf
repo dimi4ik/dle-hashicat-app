@@ -57,7 +57,6 @@ resource "aws_route_table" "public-rt" {
     Environment = var.app_environment
   }
 }
-
 # Assign the public route table to the public subnet
 resource "aws_route_table_association" "public-rt-association" {
   subnet_id      = aws_subnet.public-subnet.id
