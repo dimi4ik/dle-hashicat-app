@@ -135,7 +135,7 @@ variable "windows_instance_type" {
 variable "windows_associate_public_ip_address" {
   type        = bool
   description = "Associate a public IP address to the EC2 instance"
-  default     = true
+  default     = false
 }
 
 variable "windows_root_volume_size" {
