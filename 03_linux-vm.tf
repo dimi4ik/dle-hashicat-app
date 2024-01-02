@@ -142,6 +142,8 @@ resource "null_resource" "configure-cat-app" {
   }
 }
 
+/*
+
 resource "tls_private_key" "linux_vm" {
   algorithm = "ED25519"
 }
@@ -154,3 +156,5 @@ resource "aws_key_pair" "linux_vm" {
   key_name   = local.private_key_filename
   public_key = tls_private_key.linux_vm.public_key_openssh
 }
+
+*/
