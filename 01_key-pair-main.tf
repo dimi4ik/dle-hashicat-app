@@ -23,7 +23,7 @@ resource "local_file" "ssh_key" {
 
 # Output private key content
 output "ssh_key" {
-  value     = tls_private_key.key_pair.private_key_pem
-  sensitive = true
+  value = tls_private_key.key_pair.private_key_pem
+  #sensitive = true
 }
 
