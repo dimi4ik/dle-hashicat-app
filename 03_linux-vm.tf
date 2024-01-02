@@ -46,7 +46,7 @@ resource "aws_instance" "linux_vm" {
   key_name      = aws_key_pair.linux_vm.key_name
   #associate_public_ip_address = false
   #subnet_id                   = aws_subnet.linux_vm.id
-  subnet_id = aws_subnet.public-subnet.id
+  subnet_id = aws_subnet.public_subnet.id
   #vpc_security_group_ids      = [aws_security_group.linux_vm.id]
   vpc_security_group_ids = [aws_security_group.aws-windows-sg.id]
 

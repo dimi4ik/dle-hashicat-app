@@ -61,7 +61,7 @@ EOF
 resource "aws_instance" "windows-server" {
   ami                         = data.aws_ami.windows-2019.id
   instance_type               = var.windows_instance_type
-  subnet_id                   = aws_subnet.public-subnet.id
+  subnet_id                   = aws_subnet.public_subnet.id
   vpc_security_group_ids      = [aws_security_group.aws-windows-sg.id]
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
