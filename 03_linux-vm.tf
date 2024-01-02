@@ -41,10 +41,10 @@ resource "aws_eip_association" "linux_vm" {
 
 
 resource "aws_instance" "linux_vm" {
-  ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.instance_type
-  key_name                    = aws_key_pair.linux_vm.key_name
-  associate_public_ip_address = false
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = var.instance_type
+  key_name      = aws_key_pair.linux_vm.key_name
+  #associate_public_ip_address = false
   #subnet_id                   = aws_subnet.linux_vm.id
   subnet_id = aws_subnet.public-subnet.id
   #vpc_security_group_ids      = [aws_security_group.linux_vm.id]
