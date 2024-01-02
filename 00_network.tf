@@ -26,6 +26,23 @@ resource "aws_subnet" "public-subnet" {
   }
 }
 
+#####################################
+### erstellen Private Subnet in VPC #
+### Define the Private subnet #######
+####################################
+resource "aws_subnet" "private-subnet" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.private_subnet_cidr
+  #availability_zone = var.aws_az
+  tags = {
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-Private-subnet"
+    Mandant     = "${var.prefix}-vpc-${var.region}"
+    Environment = var.app_environment
+  }
+}
+
+
+
 ####################################
 ### erstellen Gataway.      ########
 ### Define the internet gateway ####
@@ -41,8 +58,30 @@ resource "aws_internet_gateway" "gw" {
 }
 
 
+#Create EIP for NAT Gateway
+resource "aws_eip" "nat_gateway_eip" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.internet_gateway]
+  tags = {
+    Name = "demo_igw_eip"
+  }
+}
+
+#Create NAT Gateway
+resource "aws_nat_gateway" "nat_gateway" {
+  depends_on    = [aws_subnet.public_subnets]
+  allocation_id = aws_eip.nat_gateway_eip.id
+  subnet_id     = aws_subnet.public_subnets["public_subnet_1"].id
+  tags = {
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-ngw"
+    Mandant     = "${var.prefix}-vpc-${var.region}"
+    Environment = var.app_environment
+  }
+}
+
+
 ####################################
-### erstellen Route Table ##########
+### erstellen IGW Route Table ######
 ### Define the public route table ##
 ####################################
 resource "aws_route_table" "public-rt" {
@@ -57,11 +96,39 @@ resource "aws_route_table" "public-rt" {
     Environment = var.app_environment
   }
 }
+
 # Assign the public route table to the public subnet
 resource "aws_route_table_association" "public-rt-association" {
   subnet_id      = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-rt.id
 }
+
+
+
+####################################
+### erstellen NGW Route Table ######
+### Define the private route table ##
+####################################
+resource "aws_route_table" "private-rt" {
+  vpc_id = aws_vpc.vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.vnat_gateway_eip.vpc_id
+  }
+  tags = {
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public-subnet-rt"
+    Mandant     = "${var.prefix}-vpc-${var.region}"
+    Environment = var.app_environment
+  }
+}
+
+# Assign the private route table to the private subnet
+resource "aws_route_table_association" "private-rt-association" {
+  subnet_id      = aws_subnet.private-subnet.id
+  route_table_id = aws_route_table.private-rt.id
+}
+
+
 
 ####################################
 ### Define the security group ######
@@ -71,7 +138,7 @@ resource "aws_security_group" "aws-windows-sg" {
   description = "Allow incoming connections"
   vpc_id      = aws_vpc.vpc.id
 
-/*
+  /*
 
   ingress {
     from_port   = 80

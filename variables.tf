@@ -185,16 +185,24 @@ variable "aws_az" {
 variable "vpc_cidr" {
   type        = string
   description = "CIDR for the VPC"
-  default     = "10.1.64.0/18"
+  default     = "10.0.0.0/16"
 }
 
 
-# Subnet Variables
+# public Subnet Variables
 variable "public_subnet_cidr" {
   type        = string
   description = "CIDR for the public subnet"
-  default     = "10.1.64.0/24"
+  default     = "10.0.10.0/24"
 }
+
+# private Subnet Variables
+variable "private_subnet_cidr" {
+  type        = string
+  description = "CIDR for the public subnet"
+  default     = "10.0.20.0/24"
+}
+
 
 
 ####################################
