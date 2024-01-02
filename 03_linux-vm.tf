@@ -1,104 +1,9 @@
-
- /*
-####################################
-### erstellen Subnet in VPC ########
-####################################
-
-resource "aws_subnet" "linux_vm" {
-  vpc_id     = aws_vpc.linux_vm.id
-  cidr_block = var.subnet_prefix
-
-  tags = {
-    name = "${var.prefix}-subnet"
-    environment = "Production"
-  }
-}
-
-
-####################################
-### erstellen Security Group########
-####################################
-
-resource "aws_security_group" "linux_vm" {
-  name = "${var.prefix}-security-group"
-
-  vpc_id = aws_vpc.linux_vm.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
-    prefix_list_ids = []
-  }
-
-  tags = {
-    Name = "${var.prefix}-security-group"
-    environment = "Production" 
-  }
-}
-
-####################################
-### erstellen Gataway.      ########
-####################################
-
-
-resource "aws_internet_gateway" "linux_vm" {
-  vpc_id = aws_vpc.linux_vm.id
-
-  tags = {
-    Name = "${var.prefix}-internet-gateway"
-    environment = "Production"
-  }
-}
-
-####################################
-### erstellen Route Table ########
-####################################
-
-resource "aws_route_table" "linux_vm" {
-  vpc_id = aws_vpc.linux_vm.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.linux_vm.id
-  }
-}
-
-resource "aws_route_table_association" "linux_vm" {
-  subnet_id      = aws_subnet.linux_vm.id
-  route_table_id = aws_route_table.linux_vm.id
-}
-
-
 # Добавьте в свой код блок типа aws_ami, назовите его ubuntu; 
 # 3. Установите переменную most_recent = true, это позволит получить последний образ из всех; 
 # 4. Установите переменную owners = ["099720109477"], это ID владельца образа - Canonical; 
 # 5. Создайте блоки со следующими фильтрами: 1. name: ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-* 2. virtualization-type: hvm 1. 
 # В ресурсе виртуальной машины замените параметр ami, заданный строкой, ссылкой на ресурс: data.aws_ami.ubuntu.id. Важно: кавычки ставить не нужно!
 
-*/
 ####################################
 ### Suchen ein Ubuntu image AMI ####
 ####################################
@@ -139,15 +44,15 @@ resource "aws_instance" "linux_vm" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.linux_vm.key_name
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   #subnet_id                   = aws_subnet.linux_vm.id
-  subnet_id                   = aws_subnet.public-subnet.id
+  subnet_id = aws_subnet.public-subnet.id
   #vpc_security_group_ids      = [aws_security_group.linux_vm.id]
-  vpc_security_group_ids      = [aws_security_group.aws-windows-sg.id]
+  vpc_security_group_ids = [aws_security_group.aws-windows-sg.id]
 
   tags = {
-    Name = "${var.prefix}-linux_vm-instance"
-    environment = "Production"  
+    Name        = "${var.prefix}-linux_vm-instance"
+    environment = "Production"
   }
 }
 
@@ -226,7 +131,7 @@ resource "null_resource" "configure-cat-app" {
     ]
 
 
-# figlet kerneltalks | cowsay -n
+    # figlet kerneltalks | cowsay -n
 
     connection {
       type        = "ssh"
