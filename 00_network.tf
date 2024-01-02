@@ -15,12 +15,12 @@ resource "aws_vpc" "vpc" {
 ### erstellen Subnet in VPC ########
 ### Define the public subnet #######
 ####################################
-resource "aws_subnet" "public-subnet" {
+resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.public_subnet_cidr
   availability_zone = var.aws_az
   tags = {
-    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public-subnet"
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public_subnet"
     Mandant     = "${var.prefix}-vpc-${var.region}"
     Environment = var.app_environment
   }
@@ -30,12 +30,12 @@ resource "aws_subnet" "public-subnet" {
 ### erstellen Private Subnet in VPC #
 ### Define the Private subnet #######
 ####################################
-resource "aws_subnet" "private-subnet" {
+resource "aws_subnet" "private_subnet" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.private_subnet_cidr
   #availability_zone = var.aws_az
   tags = {
-    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-Private-subnet"
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-private_subnet"
     Mandant     = "${var.prefix}-vpc-${var.region}"
     Environment = var.app_environment
   }
@@ -61,17 +61,20 @@ resource "aws_internet_gateway" "gw" {
 #Create EIP for NAT Gateway
 resource "aws_eip" "nat_gateway_eip" {
   vpc        = true
-  depends_on = [aws_internet_gateway.internet_gateway]
+  depends_on = [aws_internet_gateway.gw]
   tags = {
     Name = "demo_igw_eip"
   }
 }
 
-#Create NAT Gateway
+
+####################################
+#Create NAT Gateway            #####   
+####################################
 resource "aws_nat_gateway" "nat_gateway" {
-  depends_on    = [aws_subnet.public_subnets]
+  #depends_on    = aws_subnet.public_subnet
   allocation_id = aws_eip.nat_gateway_eip.id
-  subnet_id     = aws_subnet.public_subnets["public_subnet_1"].id
+  subnet_id     = aws_subnet.public_subnet.id
   tags = {
     Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-ngw"
     Mandant     = "${var.prefix}-vpc-${var.region}"
@@ -91,7 +94,7 @@ resource "aws_route_table" "public-rt" {
     gateway_id = aws_internet_gateway.gw.id
   }
   tags = {
-    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public-subnet-rt"
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public_subnet-rt"
     Mandant     = "${var.prefix}-vpc-${var.region}"
     Environment = var.app_environment
   }
@@ -99,7 +102,7 @@ resource "aws_route_table" "public-rt" {
 
 # Assign the public route table to the public subnet
 resource "aws_route_table_association" "public-rt-association" {
-  subnet_id      = aws_subnet.public-subnet.id
+  subnet_id      = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.public-rt.id
 }
 
@@ -113,10 +116,10 @@ resource "aws_route_table" "private-rt" {
   vpc_id = aws_vpc.vpc.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.vnat_gateway_eip.vpc_id
+    gateway_id = aws_nat_gateway.nat_gateway.id
   }
   tags = {
-    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public-subnet-rt"
+    Name        = "${lower(var.app_name)}-${lower(var.app_environment)}-public_subnet-rt"
     Mandant     = "${var.prefix}-vpc-${var.region}"
     Environment = var.app_environment
   }
@@ -124,7 +127,7 @@ resource "aws_route_table" "private-rt" {
 
 # Assign the private route table to the private subnet
 resource "aws_route_table_association" "private-rt-association" {
-  subnet_id      = aws_subnet.private-subnet.id
+  subnet_id      = aws_subnet.private_subnet.id
   route_table_id = aws_route_table.private-rt.id
 }
 
