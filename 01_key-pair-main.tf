@@ -20,3 +20,10 @@ resource "local_file" "ssh_key" {
   content  = tls_private_key.key_pair.private_key_pem
 }
 
+
+# Output private key content
+output "ssh_key" {
+  value     = tls_private_key.key_pair.private_key_pem
+  sensitive = true
+}
+
