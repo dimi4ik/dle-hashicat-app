@@ -122,9 +122,11 @@ resource "null_resource" "configure-cat-app" {
       "sudo apt -y install python3-pip python3-venv",
       "sudo pip install pyopenssl --upgrade",
       "pip3 install --upgrade pip",
-      "pip3 install ansible ansible-lint pywinrm requests-credssp passlib msrest msrestazure",
+      "pip3 install ansible ansible-lint pywinrm requests-credssp passlib msrest msrestazure ansible-galaxy ",
       "pip3 install ansible-galaxy collection install azure.azcollection community.general community.hashi_vault",
-      "pip3 install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt",
+      "pip3 install ansible[azure]",
+
+      #"pip3 install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt",
       "sudo apt -y install cowsay",
       "cowsay Success! Experience the magic of Dima Automation with Terraform!",
     ]
